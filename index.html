@@ -1,13 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart ticketing</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart ticketing</title>
+  <!-- font google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- font inter -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+  <!-- font raleway -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <!-- link: Fontawesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- link tailwind and daisy UI -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1DD100',
+            secondary: '#030712',
+            couponOne: '#FFBF0F',
+            couponTwo: '#F78C9C',
+            dark: 'rgba(3, 7, 18, 0.7)',
+            dark2: 'rgba(3, 7, 18, 0.6)',
+            dark3: 'rgba(3, 7, 18, 0.6)',
+            buttonColor: 'rgba(29, 209, 0, 0.15)',
+            seatBg: 'rgba(3, 7, 18, 0.1)',
+          },
+          fontFamily: {
+            RaleWay: 'Raleway',
+            Inter: 'Inter',
+          },
+        },
+      },
+    }
+  </script>
 </head>
+
 <body>
-    <header></header>
-    <main></main>
-    <footer></footer>
+  <header class="mt">
+
+  </header>
+  <main>
+    <!-- select your seat section start -->
+    <section class="bg-white px-8 py-5 w-11/12 mx-auto rounded-2xl shadow-sm grid grid-cols-3 gap-5">
+      <div class="col-span-2">
+        <div>
+          <h2 class="text-2xl text-secondary font-bold">Select Your Seat</h2>
+        </div>
+        <div class="border-b-2 border-dashed my-4"></div>
+        <div class="flex justify-between">
+          <div class="flex gap-4 items-center">
+            <img src="./images/seat-gray.png" alt="">
+            <p>Available</p>
+          </div>
+          <div class="flex gap-4 items-center">
+            <img src="./images/seat-green-filled.png" alt="">
+            <p class="text-primary"><span id="available-seat">40</span>/ Available</p>
+          </div>
+        </div>
+        <div class="border-b-2 border-dashed my-4"></div>
+        <section class="grid grid-cols-6 items-center gap-x-5 gap-y-5 font-Inter text-center">
+          <!-- driver seat  -->
+          <div class="col-span-5"></div>
+          <!-- driver line -->
+          <div class="btn bg-seatBg border-none"><img src="./images/wheel.png" alt=""></div>
+          <!-- line A -->
+          <div class="border-none text-dark3">A</div>
+          <button onclick="selectSeat(this)" class="btn bg-seatBg border-none text-dark2">A-1</button>
+          <button onclick="selectSeat(this)" class="btn bg-seatBg border-none text-dark2">A-2</button>
+          <div></div>
+          <button onclick="selectSeat(this)" class="btn bg-seatBg border-none text-dark2">A-3</button>
+          <button onclick="selectSeat(this)" class="btn bg-seatBg border-none text-dark2">A-4</button>
+         
+        </section>
+      </div>
+      <div class="border-l-2 border-dashed px-8">
+        <h2 class="text-2xl text-secondary font-bold"> Select Your Seat</h2>
+        <div class="border-b-2 border-dashed my-4"></div>
+        <section class="bg-[#F7F8F8] rounded-xl p-4">
+          <!-- title  -->
+          <div class="text-secondary flex justify-between">
+
+            <div>
+              <h3 class="font-semibold text-secondary">
+                <span>Seat</span>
+                <span id="seat-count" class="bg-primary rounded-full px-2 text-white text-sm">0</span>
+              </h3>
+            </div>
+            <div>
+              <h3 class="font-semibold text-secondary">Class</h3>
+            </div>
+            <div>
+              <h3 class="font-semibold text-secondary"> Price</h3>
+            </div>
+          </div>
+          <div class="border-b-2 border-dashed my-4"></div>
+          <!-- title end -->
+          <!-- booked seats details start -->
+          <div class="">
+            <ul id="selected-seat-list">
+              <h3 id="seat-counter-title" class="text-center text-couponTwo">No Seats Booked</h3>
+            </ul>
+          </div>
+          <!-- booked seats details end -->
+          <div class="border-b-2 border-solid my-4"></div>
+          <!-- total price start -->
+          <div class="text-secondary flex justify-between">
+            <div>
+              <h3 class="font-semibold text-sceondary">Total Price </h3>
+            </div>
+            <div>
+              <h3 class="font-semibold text-sceondary">
+                <span>BDT</span>
+                <span id="total-price">***</span>
+              </h3>
+            </div>
+          </div>
+          <!-- total price end -->
+          <!-- coupon start -->
+          <div id="coupen-applied" class="bg-white p-2 mt-4 rounded-xl">
+            <input id="coupon-field" type="text" class="rounded-md bg-white text-xsm" placeholder="Have any coupon code" disabled>
+            <button id="btn-coupons" class="btn bg-primary border-none text-white py-0" disabled>Apply</button>
+
+          </div>
+        
+          <!-- coupon end -->
+          <!-- grand total start -->
+          <div class="text-secondary flex justify-between mt-4">
+
+            <div>
+              <h3 class="font-semibold text-sceondary">Total Price</h3>
+            </div>
+            <div>
+              <h3 class="font-semibold text-sceondary">Price</h3>
+            </div>
+          </div>
+          <!-- grand total end -->
+        </section>
+        <!-- passenger details -->
+        <section class="mt-4 space-y-4">
+          <div class="space-y-3">
+            <h2 class="text-lg text-secondary font-bold">Passenge Name*</h2>
+            <input type="text" class="bg-white border w-full rounded-md p-4">
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-lg text-secondary font-bold">Phone Number*</h2>
+            <input type="text" class="bg-white border w-full rounded-md p-4">
+          </div>
+
+          <div class="space-y-3">
+            <h2 class="text-lg text-secondary font-bold">Email Id</h2>
+            <input type="text" class="bg-white border w-full rounded-md p-4">
+          </div>
+          <button onclick="my_modal_4.showModal()" class="btn w-full bg-primary text-white border-none font-bold text-xl"> Next </button>
+          <!-- modal start -->
+          <dialog id="my_modal_4" class="modal">
+            <div class="modal-box w-11/12 max-w-5xl">
+              <h3 class="text-lg font-bold">Hello!</h3>
+              <p class="py-4">Click the button below to close</p>
+              <div class="modal-action">
+                <form method="dialog">
+                  <!-- if there is a button, it will close the modal -->
+                  <button class="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
+          <!-- modal start -->
+        </section>
+      </div>
+    </section>
+    <!-- select your seat section end -->
+  </main>
+  <footer></footer>
+  <script src="./js/app.js"></script>
 </body>
+
 </html>
